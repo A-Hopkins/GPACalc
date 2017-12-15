@@ -25,14 +25,19 @@ def gpaCalc(classes):
 	:return: gpa: float
 			returns the gpa calculated
 	"""
-	totalgrades = 0
+	total_grades = 0
 
 	for i in classes:
-		totalgrades += int(i[0]) * grades[i[24]]
-	if totalgrades == 0:
+		
+		if i.split(' ')[-1] in grades:
+			total_grades += int(i.split(' ')[0]) * grades[i.split(' ')[-1]]
+		else:
+			total_grades += (int(i.split(' ')[-1]))
+	
+	if total_grades == 0:
 		return 0
-
-	gpa = totalgrades / totalCredits(classes)
+	
+	gpa = total_grades / totalCredits(classes)
 
 	return gpa
 
@@ -47,15 +52,19 @@ def totalGradePoint(classes):
 			returns the sum of all the total grade points in the passed parameter.
 	"""
 
-	sum = 0
+	grade_sum = 0
 
 	# summing the 24 index is the location of the letter grade, should look into a better way of doing this, in the event
 	# formatting changes
 
 	for i in classes:
-		sum += grades[i[24]]
+		
+		if i.split(' ')[-1] in grades:
+			grade_sum += grades[i.split(' ')[-1]]
+		else:
+			grade_sum += int(i.split(' ')[-1])
 
-	return sum
+	return grade_sum
 
 
 def totalCredits(classes):
@@ -68,11 +77,11 @@ def totalCredits(classes):
 			returns the sum of all the total credit hours in the passed parameter.
 	"""
 
-	sum = 0
+	total = 0
 
 	# summing the 0 index of the tuple is equivalent to summing the integer credit hours
 	for i in classes:
-		sum += int(i[0])
+		total += int(i.split(' ')[0])
 
-	return sum
+	return total
 
